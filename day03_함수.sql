@@ -72,7 +72,7 @@ SELECT LENGTH('990215-1012345') FROM DUAL;
 
 SELECT LTRIM('tttHello test','t'), RTRIM('tttHello test','t') from dual;
     
-select '    오늘의 날씨    ' , length('    오늘의 날씨    ') from dual;2   
+select '    오늘의 날씨    ' , length('    오늘의 날씨    ') from dual;   
 
 select length(rtrim(ltrim('    오늘의 날씨    ',' '),' ')) title from dual;    
 select trim('    오늘의 날씨    ') from dual;-- => 앞 뒤의 공백문자를 제거함
@@ -146,7 +146,7 @@ SELECT CHR(65), ASCII('F') FROM DUAL;
 [3] 날짜 함수
 
 SELECT SYSDATE,SYSDATE +3, SYSDATE-3, TO_CHAR(SYSDATE +3/24,'YY/MM/DD HH:MI:SS') FROM DUAL;
-
+--------??????????????
 dATE+(-)숫자: 일수를 더하거나 뺀다
 
 DATE-DATE : 일수
@@ -155,7 +155,7 @@ SELECT NAME, REG_DATE, FLOOR(SYSDATE -REG_DATE) "등록 이후 일수" FROM MEMBER;
 
 --[실습]
 --	사원테이블에서 현재까지의 근무 일수가 몇 주 몇일인가를 출력하세요.
---	단 근무일수가 많은 사람순으로 출려하세요.
+--	단 근무일수가 많은 사람순으로 출력하세요.
 select ename, trunc((sysdate-hiredate)/7) WEEKS, trunc(mod(sysdate-hiredate,7)) days
 from emp ORDER BY 2 DESC;
 
@@ -172,10 +172,10 @@ from emp ORDER BY 2 DESC;
 SELECT ADD_MONTHS(SYSDATE,5) "5개월 뒤", ADD_MONTHS(SYSDATE,-3) "석달 전" FROM DUAL;
 
 SELECT ADD_MONTHS('22/01/31', 8) FROM DUAL;
-
+-----안됨
 <3> LAST_DAY(DATE) : 월의 마지막 날짜를 구함
 SELECT LAST_DAY(SYSDATE), LAST_DAY('23/02/01') FROM DUAL;
-
+-----안됨
 <4> SYSDATE, SYSTIMESTAMP
 SELECT SYSDATE, SYSTIMESTAMP FROM DUAL;
 
@@ -225,8 +225,9 @@ SELECT TO_NUMBER('150,000','999,999') * 2 FROM DUAL;
 
 -- '$450.25' 의 3배값을 구하세요
 SELECT TO_NUMBER('$450.25','$999D99')*3 FROM DUAL;
-
+--?????????????????????D 99D9 지정된 위치에서 소수점을 리턴함
 SELECT TO_CHAR(-23,'99S'), TO_CHAR(23,'99D99'), TO_CHAR(23,'99.99EEEE') FROM DUAL;
+--?????????????
 ------------------------------------------------------------------------------
 # 그룹 함수
 : 여러 행 또는 테이블 전체에 함수가 적용되어 하나의 결과를 가져오는 함수를 의미
