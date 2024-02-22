@@ -14,7 +14,7 @@ START WITH 30 --시작값
 INCREMENT BY 10 --증가치
 MAXVALUE 99-- 최대값
 MINVALUE 30
-NOCACHE
+NOCACHE--메모리
 NOCYCLE;
 
 데이터 사전에서 조회
@@ -56,7 +56,7 @@ WHERE SEQUENCE_NAME='BBS_SEQ';
 
 SELECT BBS_SEQ.CURRVAL FROM DAUL;
 ==> ERROR 발생
-
+---------------왜 오류뜸?
 <2> BBS에 시퀀스를 이용해서 게시글을 삽입하세요
 SELECT * FROM JAVA_MEMBER;
 
@@ -168,7 +168,7 @@ MEMBER_19VIEW에서 'id3' 인 회원의 마일리지를 500점을 부여하세요
 UPDATE MEMBER_19VIEW SET MILEAGE = MILEAGE + 500 
 WHERE USERID='id3';
 ==> error 발생. with read only 옵션을 주었으므로
-
+----------------JOIN이해안감
 - 카테고리,상품,공급업체를 join한 뷰를 만드세요
 - 뷰이름 : prod_view
 
@@ -214,9 +214,69 @@ drop view 뷰이름;
 drop view emp20vw;
 --------------------------------------
 # Index
+create [unique]index 인덱스명 on 테이블명 (컬럼명)
 
+create index emp_ename_indx on emp (ename);
 
-# Synonym
+데이터 사전에서 조회
+- user_objects
+- user_indexes
+- user_ind_columns
+
+SELECT * FROM USER_OBJECTS
+WHERE OBJECT_TYPE='INDEX' AND OBJECT_NAME='EMP_ENAME_INDX';
+
+SELECT * FROM USER_INDEXES
+WHERE TABLE_NAME='EMP';
+
+고객테이블에서 NAME 에 인덱스를 생성하세요
+
+CREATE INDEX MEMBER_NAME_INDX ON MEMBER(NAME);
+
+SELECT * FROM USER_INDEXES
+WHERE TABLE_NAME='MEMBER';
+
+SELECT * FROM USER_IND_COLUMNS
+WHERE TABLE_NAME='MEMBER';
+
+SELECT * FROM MEMBER
+WHERE NAME LIKE '%길동%';
+
+--상품 테이블에서 인덱스를 걸어두면 좋을 컬럼을 찾아 인덱스를 만드세요.
+--CATEGORY_FK, EP_CODE_FK
+CREATE INDEX PRODUCTS_INDX1 ON PRODUCTS (CATEGORY_FK);
+CREATE INDEX PRODUCTS_INDX2 ON PRODUCTS (EP_CODE_FK);
+
+SELECT * FROM USER_IND_COLUMNS
+WHERE TABLE_NAME='PRODUCTS';
+
+# 인덱스 수정은 없다 =>삭제하고 다시 생성
+# 인덱스 삭제
+DROP INDEX 인덱스명;
+
+MEMBER_INDX를 삭제하세요
+DROP INDEX MEMBER_INDX;
+
+SELECT * FROM USER_INDEDXES
+WHERE TABLE_NAME='MEMBER';
+
+# Synonym - 동의어
+오라클 객체(테이블,뷰,시퀀스,프로시저..)에 대한 별칭(ALIAS)
+객체에 대한 참조를 의미
+-동의어 생성
+CREATE SYNONYM 동의어이름 FOR 객체명(스키마.테이블명);
+
+데이터 사전에서 조회
+SELECT * FROM USER_OBJECTS
+WHERE OBJECT_TYPE='SYNONYM';
+
+-동의어 삭제
+DROP SYNONYM 동의어명;
+
+DROP SYNONYM A;
+
+SELECT * FROM A;
+SELECT* FROM MYSTAR.NOTE;
 
 ---------------------------
 # 프로시저 - crud

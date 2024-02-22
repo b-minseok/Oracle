@@ -69,6 +69,7 @@ ROLLBACK;
 SELECT * FROM MEMBER;
 UPDATE MEMBER SET AGE = AGE+5;
 ROLLBACK;
+
 --	 2_1] 고객 중 23/09/01이후 등록한 고객들의 마일리지를 350점씩 올려주세요.
 UPDATE MEMBER SET MILEAGE = MILEAGE + 350 WHERE REG_DATE > '23/09/01';
 --     4] 등록되어 있는 고객 정보 중 이름에 '김'자가 들어있는 모든 이름을 '김' 대신
@@ -85,7 +86,7 @@ ROLLBACK;
 --EMP2테이블에서 SCOTT의 업무와 급여가 일치하도록
 --		JONES의 업무와 급여를 변경하여라.
 SELECT * FROM EMP2;
-
+-----------------------이해안감
 UPDATE EMP2 SET (JOB, SAL)=
 (SELECT JOB,SAL FROM EMP2 WHERE ENAME='SCOTT')
 WHERE ENAME='JONES';
@@ -137,7 +138,7 @@ SELECT * FROM PRODUCTS;
 ROLLBACK;
 
 --	2] 상품 테이블에 있는 상품 중 상품의 대분류가 도서인 상품을 삭제하세요.
-;
+-----------이해안감
 DELETE FROM PRODUCTS
 WHERE CATEGORY_FK =
 (SELECT CATEGORY_CODE FROM CATEGORY WHERE CATEGORY_NAME='도서');
@@ -149,6 +150,7 @@ ROLLBACK;
 
 #DELETE 문에서 SUBQUERY 사용
 --- EMP2에서 NEW YORK에 근무하는 사원들의 정보를 삭제하세요
+--------이해안감
 DELETE FROM EMP2
 WHERE DEPTNO=
 (SELECT DEPTNO FROM DEPT2 WHERE LOC ='NEW YORK');
@@ -159,7 +161,7 @@ ROLLBACK;
 
 #DELETE 시 무결성 제약조건 에러
 -DEPT2에서 30번 부서를 삭제하세요
-
+--------이해안감 왜?30번은 삭제안되고 40번으로 변경해서 삭제됨?
 DELETE FROM DEPT2 WHERE DEPTNO=30;
 ==>ORA-02292: integrity constraint (SCOTT.EMP2_DEPTNO_FK) violated - child record found
 
